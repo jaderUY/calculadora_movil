@@ -26,17 +26,6 @@ export class HomePage {
     }
   }
 
-  // funcion para la logica del punto
-  appendDecimal() {
-    if (this.waitingForSecondOperand) {
-      this.display = '0';
-      this.waitingForSecondOperand = false;
-      return;
-    } else {
-      if (!this.display.includes('.')) this.display += '.';
-    }
-  }
-
   // funcion para la logica de las operaciones básicas
   setOperation(op: string) {
     const inputValue = parseFloat(this.display);
@@ -75,7 +64,8 @@ export class HomePage {
         break;
       case 'tan': this.display = String(Math.tan(value));
         break;
-    }
+    } 
+    this.waitingForSecondOperand = true;
   }
 
   // funcion para calcular todas las operaciones
@@ -88,4 +78,28 @@ export class HomePage {
       this.waitingForSecondOperand = true;
     }
   }
+
+  // funcion para la logica del punto
+  appendDecimal() {
+    if (this.waitingForSecondOperand) {
+      this.display = '0';
+      this.waitingForSecondOperand = false;
+      return;
+    } else {
+      if (!this.display.includes('.')) this.display += '.';
+    }
+  }
+
+  // funcion para limpiar
+  reset() {
+    this.display = '0';
+    this.firstOperand = null;
+    this.operator = null;
+  }
+
+  // funcion para eliminar
+  deleteLast() {
+    this.display = this.display.length > 1 ? this.display.slice(0, -1): '0';
+  }
 } 
+
