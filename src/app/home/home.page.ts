@@ -12,36 +12,36 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow
 
 export class HomePage {
   display: string = '0';
-  firstOperand: number | null = null;
-  operator: string | null = null;
-  waitingForSecondOperand: boolean = false;
+  primeraOperacion: number | null = null;
+  operacion: string | null = null;
+  esperandoSegundaOperacion: boolean = false;
 
-  // funcion para la logica de los numoros y decimales
-  appendNumber(num: string) {
-    if (this.waitingForSecondOperand) {
+  // funcion para añadir los numeros
+  anadirNumero(num: string) {
+    if (this.esperandoSegundaOperacion) {
       this.display = num;
-      this.waitingForSecondOperand = false;
+      this.esperandoSegundaOperacion = false;
     } else {
       this.display = this.display === '0' ? num : this.display + num;
     }
   }
 
   // funcion para la logica de las operaciones básicas
-  setOperation(op: string) {
+  ponerOperacion(op: string) {
     const inputValue = parseFloat(this.display);
-    if (this.firstOperand === null) {
-      this.firstOperand = inputValue;
-    } else if (this.operator) {
-      const result = this.calculateResult(this.firstOperand, inputValue, this.operator);
+    if (this.primeraOperacion === null) {
+      this.primeraOperacion = inputValue;
+    } else if (this.operacion) {
+      const result = this.calcularResultado(this.primeraOperacion, inputValue, this.operacion);
       this.display = String(result);
-      this.firstOperand = result;
+      this.primeraOperacion = result;
     }
-    this.operator = op;
-    this.waitingForSecondOperand = true;
+    this.operacion = op;
+    this.esperandoSegundaOperacion = true;
   }
 
-  // funcion para calcular el resultado con operaciones aritmeticas basicas
-  calculateResult(first: number, second: number, op: string): number {
+  // funcion para calcular las operaciones aritmeticas
+  calcularResultado(first: number, second: number, op: string): number {
     switch(op) {
       case '+': return first + second;
       case '-': return first - second;
@@ -53,7 +53,7 @@ export class HomePage {
   }
   
   // funcion para calcular el valor trigonometrico y raiz
-  unaryOperation(op: string) {
+  operacionTrigonometrica(op: string) {
     const value = parseFloat(this.display);
     switch(op) {
       case 'sqrt': this.display = String(Math.sqrt(value));
@@ -65,40 +65,40 @@ export class HomePage {
       case 'tan': this.display = String(Math.tan(value));
         break;
     } 
-    this.waitingForSecondOperand = true;
+    this.esperandoSegundaOperacion = true;
   }
 
   // funcion para calcular todas las operaciones
-  calculate() {
+  calcular() {
     const inputValue = parseFloat(this.display);
-    if(this.operator && this.firstOperand !== null) {
-      this.display = String(this.calculateResult(this.firstOperand, inputValue, this.operator));
-      this.firstOperand = null;
-      this.operator = null;
-      this.waitingForSecondOperand = true;
+    if(this.operacion && this.primeraOperacion !== null) {
+      this.display = String(this.calcularResultado(this.primeraOperacion, inputValue, this.operacion));
+      this.primeraOperacion = null;
+      this.operacion = null;
+      this.esperandoSegundaOperacion = true;
     }
   }
 
-  // funcion para la logica del punto
-  appendDecimal() {
-    if (this.waitingForSecondOperand) {
+  // funcion para añadir el .
+  anadirDecimal() {
+    if (this.esperandoSegundaOperacion) {
       this.display = '0';
-      this.waitingForSecondOperand = false;
+      this.esperandoSegundaOperacion = false;
       return;
     } else {
       if (!this.display.includes('.')) this.display += '.';
     }
   }
 
-  // funcion para limpiar
-  reset() {
+  // funcion para reiniciar el display
+  limpiarDisplay() {
     this.display = '0';
-    this.firstOperand = null;
-    this.operator = null;
+    this.primeraOperacion = null;
+    this.operacion = null;
   }
 
-  // funcion para eliminar
-  deleteLast() {
+  // funcion para eliminar el ultimo digito
+  eliminar() {
     this.display = this.display.length > 1 ? this.display.slice(0, -1): '0';
   }
 } 
