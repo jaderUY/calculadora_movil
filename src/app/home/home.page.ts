@@ -37,7 +37,7 @@ export class HomePage {
     }
   }
 
-  // duncion para la logica de las operaciones básicas
+  // funcion para la logica de las operaciones básicas
   setOperation(op: string) {
     const inputValue = parseFloat(this.display);
     if (this.firstOperand === null) {
@@ -49,5 +49,36 @@ export class HomePage {
     }
     this.operator = op;
     this.waitingForSecondOperand = true;
+  }
+
+  // funcion para calcular el resultado con operaciones aritmeticas basicas
+  calculateResult(first: number, second: number, op: string): number {
+    switch(op) {
+      case '+': return first + second;
+      case '-': return first - second;
+      case '*': return first * second;
+      case '/': return second !== 0 ? first / second: 0;
+      case '^': return Math.pow(first, second);
+      default: return second;
+    }
+  }
+  
+  // funcion para calcular el valor trigonometrico
+  unaryOperation(op: string) {
+    const value = parseFloat(this.display);
+    switch(op) {
+      case 'sqrt':
+    }
+  }
+
+  // funcion para calcular todas las operaciones
+  calculate() {
+    const inputValue = parseFloat(this.display);
+    if(this.operator && this.firstOperand !== null) {
+      this.display = String(this.calculateResult(this.firstOperand, inputValue, this.operator));
+      this.firstOperand = null;
+      this.operator = null;
+      this.waitingForSecondOperand = true;
+    }
   }
 } 
