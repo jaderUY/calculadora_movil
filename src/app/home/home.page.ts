@@ -17,17 +17,17 @@ export class HomePage {
   esperandoSegundaOperacion: boolean = false;
 
   // funcion para añadir los numeros
-  anadirNumero(num: string) {
+  anadirNumero(numero: string) {
     if (this.esperandoSegundaOperacion) {
-      this.display = num;
+      this.display = numero;
       this.esperandoSegundaOperacion = false;
     } else {
-      this.display = this.display === '0' ? num : this.display + num;
+      this.display = this.display === '0' ? numero : this.display + numero;
     }
   }
 
   // funcion para la logica de las operaciones básicas
-  ponerOperacion(op: string) {
+  ponerOperacion(opcion: string) {
     const inputValue = parseFloat(this.display);
     if (this.primeraOperacion === null) {
       this.primeraOperacion = inputValue;
@@ -36,26 +36,26 @@ export class HomePage {
       this.display = String(result);
       this.primeraOperacion = result;
     }
-    this.operacion = op;
+    this.operacion = opcion;
     this.esperandoSegundaOperacion = true;
   }
 
   // funcion para calcular las operaciones aritmeticas
-  calcularResultado(first: number, second: number, op: string): number {
-    switch(op) {
-      case '+': return first + second;
-      case '-': return first - second;
-      case '*': return first * second;
-      case '/': return second !== 0 ? first / second: 0;
-      case '^': return Math.pow(first, second);
-      default: return second;
+  calcularResultado(primerNumero: number, segundoNumero: number, opcion: string): number {
+    switch(opcion) {
+      case '+': return primerNumero + segundoNumero;
+      case '-': return primerNumero - segundoNumero;
+      case '*': return primerNumero * segundoNumero;
+      case '/': return segundoNumero !== 0 ? primerNumero / segundoNumero: 0;
+      case '^': return Math.pow(primerNumero, segundoNumero);
+      default: return segundoNumero;
     }
   }
   
   // funcion para calcular el valor trigonometrico y raiz
-  operacionTrigonometrica(op: string) {
+  operacionTrigonometrica(opcion: string) {
     const value = parseFloat(this.display);
-    switch(op) {
+    switch(opcion) {
       case 'sqrt': this.display = String(Math.sqrt(value));
         break;
       case 'sin': this.display = String(Math.sin(value));
