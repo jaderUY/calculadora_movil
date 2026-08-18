@@ -63,11 +63,18 @@ export class HomePage {
     }
   }
   
-  // funcion para calcular el valor trigonometrico
+  // funcion para calcular el valor trigonometrico y raiz
   unaryOperation(op: string) {
     const value = parseFloat(this.display);
     switch(op) {
-      case 'sqrt':
+      case 'sqrt': this.display = String(Math.sqrt(value));
+        break;
+      case 'sin': this.display = String(Math.sin(value));
+        break;
+      case 'cos': this.display = String(Math.cos(value));
+        break;
+      case 'tan': this.display = String(Math.tan(value));
+        break;
     }
   }
 
